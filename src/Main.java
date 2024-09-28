@@ -89,7 +89,7 @@ public class Main {
                                     break;
 
                                 case 5:
-                                    current_student.dropCourse();
+                                    current_student.drop_course();
                                     System.out.println();
                                     break;
 
@@ -107,12 +107,17 @@ public class Main {
                                         current_student.submit_complaint(description);
                                     }
                                     else if (input == 2) {
-                                        current_student.view_status_ofComplaint();
+                                        current_student.view_status_of_complaint();
                                     }
                                     else {
                                         System.out.println("Enter a valid choice.");
                                     }
 
+                                    System.out.println();
+                                    break;
+
+                                case 7:
+                                    current_student.give_feedback();
                                     System.out.println();
                                     break;
 
@@ -149,6 +154,11 @@ public class Main {
 
                                 case 2:
                                     current_prof.view_enrolled_students();
+                                    System.out.println();
+                                    break;
+
+                                case 3:
+                                    current_prof.view_feedback();
                                     System.out.println();
                                     break;
 

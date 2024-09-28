@@ -2,6 +2,7 @@
 1. A Student should register for all courses of a particular semester at once (at least 18 credits, at most 20).
 2. ADMIN assigns grade to student, not professor. (There was a lot of confusion about this on Google Classroom, so I have assumed and implemented this).
 3. In the `track academic records` method (inside the `Student` class), I have assumed that the Student can only view grades, SGPA, and CGPA till the previous semester since once all grades are assigned for a semester, the student is automatically promoted to the next semester.
+4. No cap(upper limit) on the number of feedbacks by a particular student for a specific course.
 
 # Running the code
 1. In my implementation, before registering for courses, professors with the required domains should be signed up. Then, admins should assign professors to corresponding courses. After that, the student can register for the course.

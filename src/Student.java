@@ -110,6 +110,7 @@ public class Student extends User {
         System.out.println("4: Track Academic Progress");
         System.out.println("5: Drop Courses");
         System.out.println("6: Submit Complaints");
+        System.out.println("7: Submit Feedback");
     }
 
 
@@ -228,6 +229,7 @@ public class Student extends User {
 
             if (!course_to_register.enrollStudent(this)) {
                 //Enrollment limit for course reached.
+                System.out.println("Enrollment limit for this course has been reached. Register for a different course.");
                 continue;
             }
 
@@ -346,7 +348,7 @@ public class Student extends User {
 
 
     // Functionality 5: Drop Courses
-    public void dropCourse() {
+    public void drop_course() {
         Scanner scanner = new Scanner(System.in);
 
         // If no course is registered, then can't drop a course
@@ -401,13 +403,58 @@ public class Student extends User {
     }
 
     // Method for student to view their complaint statuses
-    public void view_status_ofComplaint() {
+    public void view_status_of_complaint() {
         if (complaints.isEmpty()) {
             System.out.println("No complaints submitted.");
         } else {
             for (Complaint complaint : complaints) {
                 System.out.println(complaint);
             }
+        }
+    }
+
+
+    // Functionality 7: Give feedback
+    public void give_feedback() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the Course code of the course for which you want to give feedback: ");
+        String cc = scanner.nextLine();
+
+        Course wanted_course = null;
+        for (int i = 0; i < sem - 1; i++) {           // Allowing courses completed only(not the ones taken in this sem)
+            for (Course course : course_list.get(i)) {
+                if (course.getCourse_code().equals(cc)) {
+                    // course found
+                    wanted_course = course;
+
+                    System.out.println("Do you want to enter a rating or some textual feedback for the course?");
+                    System.out.println("1: Rating, 2: Textual Feedback.");
+                    int choice = scanner.nextInt();
+                    if (choice == 1) {
+                        System.out.println("Enter the rating for the course: ");
+                        Integer feedback = scanner.nextInt();
+                        scanner.nextLine();
+                        Feedback<Integer> f = new Feedback<>(feedback, wanted_course, this);
+                        System.out.println("Rating submitted successfully");
+                    }
+                    else if (choice == 2) {
+                        System.out.println("Enter your feedback(in text form) for the course: ");
+                        String feedback = scanner.nextLine();
+                        Feedback<String> f = new Feedback<>(feedback, wanted_course, this);
+                        System.out.println("Feedback submitted successfully");
+                    }
+                    else {
+                        System.out.println("Invalid feedback choice. Please try again.");
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        if (wanted_course == null) {
+            System.out.println("Course does not exist, or hasn't been taken by you.");
+            return;
         }
     }
 

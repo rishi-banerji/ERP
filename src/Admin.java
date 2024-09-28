@@ -122,6 +122,7 @@ public class Admin extends User {
         while (flag) {
             System.out.println("Do you want to add a pre-requisite? Enter 1 for yes, 2 for no");
             int choice = s.nextInt();
+            s.nextLine();
 
             if (choice == 1) {
                 System.out.println("Enter the course code");

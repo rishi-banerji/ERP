@@ -12,6 +12,8 @@ public class Course {
 
     public static ArrayList<Course> available_courses = new ArrayList<>();
 
+    public ArrayList<Feedback> feedback_list = new ArrayList<>();
+
     // ASSUMPTION: ANY COURSE whose PRE-REQUISITES have been COMPLETED by a student in a previous sem, can be taken
     // by the student in the current sem.
 
@@ -29,7 +31,6 @@ public class Course {
         this.syllabus = null;
         this.office_hours = null;
         this.enrollment_limit = 50;
-        this.enrolled_students = new ArrayList<>();
     }
 
     public Course(String course_name, Prof prof, String location, String course_code, String domain,
@@ -48,7 +49,6 @@ public class Course {
         this.enrollment_limit = enrollment_limit;
         this.syllabus = syllabus;
         this.office_hours = office_hours;
-        this.enrolled_students = new ArrayList<>();
     }
 
     public Course(String course_name, String location, String course_code, String domain,
@@ -67,7 +67,6 @@ public class Course {
         this.enrollment_limit = enrollment_limit;
         this.syllabus = syllabus;
         this.office_hours = office_hours;
-        this.enrolled_students = new ArrayList<>();
     }
 
 

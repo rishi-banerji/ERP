@@ -82,6 +82,7 @@ public class Prof extends User {
         System.out.println("0: Exit");
         System.out.println("1: Manage Course assigned to you");
         System.out.println("2: View Enrolled Students");
+        System.out.println("3: View Feedback");
     }
 
 
@@ -111,6 +112,7 @@ public class Prof extends User {
         System.out.println("Select the attribute to update:");
         System.out.println("1: Syllabus, 2: Timings, 3: Credits, 4: Prerequisites, 5: Enrollment Limit, 6: Office Hours");
         int choice = scanner.nextInt();
+        scanner.nextLine();
 
         switch (choice) {
             case 1:
@@ -126,6 +128,7 @@ public class Prof extends User {
             case 3:
                 System.out.println("Enter new credits:");
                 int credits = scanner.nextInt();
+                scanner.nextLine();
                 course.setCredits(credits);
                 break;
             case 4:
@@ -145,6 +148,7 @@ public class Prof extends User {
             case 5:
                 System.out.println("Enter new enrollment limit:");
                 int limit = scanner.nextInt();
+                scanner.nextLine();
                 course.setEnrollment_limit(limit);
                 break;
             case 6:
@@ -174,6 +178,17 @@ public class Prof extends User {
             for (Student student : enrolled_students) {
                 System.out.println("Name: " + student.getName() + ", Roll Number: " + student.getRoll_number() + ", CGPA: " + student.getCGPA());
             }
+        }
+    }
+
+    // Functionality 3: View Feedback
+    public void view_feedback() {
+        if (this.assignedCourse == null) {
+            System.out.println("No course has been assigned to you yet, so no feedback has been submitted.");
+            return;
+        }
+        for (var f: this.assignedCourse.feedback_list) {
+            System.out.println(f);
         }
     }
 

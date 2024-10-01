@@ -28,8 +28,6 @@ public class Main {
 
 
 
-
-
         boolean flag = true;
         while (flag) {
             System.out.println("do you want to login/signup from an account, or exit the application?");
@@ -49,7 +47,95 @@ public class Main {
 
                     System.out.println("------------------------------------------MENU----------------------------------------------");
 
+                    if (current_user instanceof TA) {
+                        // IMPLEMENT TA FUNCTIONALITY USAGE
+                        TA current_TA = (TA) current_user;
+                        while (true) {
+                            current_TA.print_menu();
 
+                            System.out.println("Which operation do you want to perform? Enter the number corresponding to the operation: ");
+                            int option0 = scanner.nextInt();
+                            scanner.nextLine();
+
+                            boolean flag0 = true;
+                            switch (option0) {
+                                // NOTE: ADD BREAK STATEMENT AT THE END OF EACH SWITCH CASE
+
+                                case 0:                                     // Exit
+                                    flag0 = false;
+                                    System.out.println();
+                                    break;
+
+                                case 1:                                     // view courses
+                                    current_TA.view_available_courses();
+                                    System.out.println();
+                                    break;
+
+                                case 2:                                     // register for courses
+                                    current_TA.course_registration();
+                                    System.out.println();
+                                    break;
+
+                                case 3:
+                                    current_TA.viewSchedule();
+                                    System.out.println();
+                                    break;
+
+                                case 4:
+                                    current_TA.view_academic_records();
+                                    System.out.println();
+                                    break;
+
+                                case 5:
+                                    current_TA.drop_course();
+                                    System.out.println();
+                                    break;
+
+                                case 6:
+                                    // implement SUBMIT COMPLAINT functionality
+                                    System.out.println("Do you want to submit a complaint, or view the statuses of your submitted complaints?");
+                                    System.out.println("1: Submit complaint, 2: View status");
+                                    int input = scanner.nextInt();
+                                    scanner.nextLine();
+
+                                    if (input == 1) {
+                                        System.out.println("Describe your complaint: ");
+                                        String description = scanner.nextLine();
+
+                                        current_TA.submit_complaint(description);
+                                    } else if (input == 2) {
+                                        current_TA.view_status_of_complaint();
+                                    } else {
+                                        System.out.println("Enter a valid choice.");
+                                    }
+
+                                    System.out.println();
+                                    break;
+
+                                case 7:
+                                    current_TA.give_feedback();
+                                    System.out.println();
+                                    break;
+
+                                case 8:
+                                    current_TA.view_grades();
+                                    System.out.println();
+                                    break;
+
+                                case 9:
+                                    current_TA.update_grades();
+                                    System.out.println();
+                                    break;
+
+                                default:
+                                    System.out.println("Enter valid choice");
+                            }
+
+                            if (!flag0) {                           // User chose to exit from logged in account
+                                break;
+                            }
+                        }
+                    }
                     // When User is STUDENT
                     if (current_user.role().equals("Student")) {
                         Student current_student = (Student) current_user;
@@ -58,6 +144,7 @@ public class Main {
 
                             System.out.println("Which operation do you want to perform? Enter the number corresponding to the operation: ");
                             int option1 = scanner.nextInt();
+                            scanner.nextLine();
 
                             boolean flag1 = true;
                             switch (option1) {
@@ -138,6 +225,7 @@ public class Main {
 
                             System.out.println("Which operation do you want to perform? Enter a number according to the operation: ");
                             int option2 = scanner.nextInt();
+                            scanner.nextLine();
 
                             boolean flag2 = true;
                             switch (option2) {
@@ -283,6 +371,11 @@ public class Main {
                                     System.out.println();
                                     break;
 
+                                case 5:
+                                    current_admin.ta_to_course();
+                                    System.out.println();
+                                    break;
+
                                 default:
                                     System.out.println("Enter a valid choice");
                             }
@@ -309,7 +402,8 @@ public class Main {
         for (User user: users) {
             if (user instanceof Student && ((Student)user).getEmail().equals(email) ||
                 user instanceof Prof && ((Prof)user).getEmail().equals(email) ||
-                user instanceof Admin && ((Admin)user).getEmail().equals(email))
+                user instanceof Admin && ((Admin)user).getEmail().equals(email) ||
+                user instanceof TA && ((TA)user).getEmail().equals(email) )
             {
                 return true;
             }
@@ -325,31 +419,40 @@ public class Main {
     public static User loginUser(String email, String password) {
         for (User user : users) {
             // Checking if user exists; didn't want to write this 3 times, so wrote it as a common func
-            if ((user instanceof Student && ((Student) user).getEmail().equals(email)) ) {
+            if ((user instanceof TA && ((TA) user).getEmail().equals(email)) ) {
+                // Check password
+                TA existing_TA = (TA) user;
+                existing_TA = existing_TA.login(email, password);
+                if (existing_TA != null) {
+                    System.out.println("Login successful");
+                    return existing_TA;
+                }
+            }
+            else if ((user instanceof Student && ((Student) user).getEmail().equals(email)) ) {
                 // Check password
                 Student existing_student = (Student) user;
-                Student r = existing_student.login(email, password);
-                if (r != null) {
+                existing_student = existing_student.login(email, password);
+                if (existing_student != null) {
                     System.out.println("Login successful");
-                    return r;
+                    return existing_student;
                 }
             }
             else if ((user instanceof Prof && ((Prof) user).getEmail().equals(email)) ) {
                     // Check password
                 Prof existing_prof = (Prof) user;
-                Prof t = existing_prof.login(email, password);
-                if (t != null) {
+                existing_prof = existing_prof.login(email, password);
+                if (existing_prof != null) {
                     System.out.println("Login successful");
-                    return t;
+                    return existing_prof;
                 }
             }
             else if ((user instanceof Admin && ((Admin) user).getEmail().equals(email)) ) {
                     // Check password
                 Admin existing_admin = (Admin) user;
-                Admin u = existing_admin.login(email, password);
-                if (u != null) {
+                existing_admin = existing_admin.login(email, password);
+                if (existing_admin != null) {
                     System.out.println("Login successful");
-                    return u;
+                    return existing_admin;
                 }
             }
         }
@@ -365,7 +468,7 @@ public class Main {
         while (flag) {
 
             // Determining role of user
-            System.out.println("Enter the role of the user. (1 for Student, 2 for Prof, 3 for Admin)");
+            System.out.println("Enter the role of the user. (1 for Student, 2 for Prof, 3 for Admin, 4 for TA)");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -380,6 +483,10 @@ public class Main {
                     break;
                 case 3:
                     user = new Admin();                 // calling constructor of Admin class
+                    flag = false;
+                    break;
+                case 4:
+                    user = new TA();
                     flag = false;
                     break;
                 default:
@@ -420,8 +527,9 @@ public class Main {
             return (Prof) user;
         } else if (user instanceof Admin) {
             return (Admin) user;
+        } else if (user instanceof TA) {
+            return (TA) user;
         }
         return user;
-
     }
 }

@@ -4,18 +4,18 @@ import java.util.Scanner;
 
 
 public class Student extends User {
-    private String email, password;
-    private String name, roll_number;
-    private int sem;
-    private double CGPA;
+    protected String email, password;
+    protected String name, roll_number;
+    protected int sem;
+    protected double CGPA;
 
     // stores all courses taken. Courses in CURRENT SEM: grade not assigned
     // inner arraylist: courses in 1 sem
-    private ArrayList<ArrayList<Course>> course_list;
+    protected ArrayList<ArrayList<Course>> course_list;
 
-    private ArrayList<Double> SGPA_list = new ArrayList<>(8);
+    protected ArrayList<Double> SGPA_list = new ArrayList<>(8);
 
-    private List<Complaint> complaints;
+    protected List<Complaint> complaints;
 
 
     // Constructors

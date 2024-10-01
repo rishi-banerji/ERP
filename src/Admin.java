@@ -74,7 +74,7 @@ public class Admin extends User {
         System.out.println("2: Manage student records");
         System.out.println("3: Assign professors to courses");
         System.out.println("4: Handle Complaints");
-
+        System.out.println("5: Assign TAs to Courses");
     }
 
 
@@ -359,7 +359,6 @@ public class Admin extends User {
     }
 
 
-    // NOTE: IMPLEMENT HANDLE COMPLAINTS HERE
     // Functionality 4: Handle Complaints
     // Viewing all complaints
     public void view_all_complaints() {
@@ -399,6 +398,37 @@ public class Admin extends User {
         }
     }
 
+    // Functionality 5: Assigning TA to Course
+    public void ta_to_course() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter the Course code of the Course to which you want to assign a TA: ");
+        String course_code = scanner.nextLine();
+
+        for (Course course: Course.available_courses) {
+            if (course.getCourse_code().equals(course_code)) {
+                // course found
+                if (course.getTa() == null) {
+                    System.out.println("Enter the Roll-number of the TA: ");
+                    String roll_num = scanner.nextLine();
+
+                    // Search for the TA
+                    for (User user : Main.users) {
+                        if (user instanceof TA && ((TA) user).getRoll_number().equals(roll_num)) {
+                            // TA found
+                            course.setTa((TA) user);
+                            ((TA) user).setAssigned_course(course);
+                            System.out.println("The TA has been assigned to the course.");
+                            return;
+                        }
+                    }
+                    System.out.println("TA with given Roll-number not found.");
+                    return;
+                }
+                System.out.println("A TA has already been assigned to the course.");
+            }
+        }
+        System.out.println("Course with given course code not found.");
+    }
 
 
     // GETTERS AND SETTERS

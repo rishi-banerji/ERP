@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Course {
     private String course_name, location, course_code, domain; // location: room in which class will be held
     private Prof prof;
+    private TA ta;
     private int credits, enrollment_limit, grade = -1;                       // Taking grade not assigned yet to be -1
     private String syllabus, office_hours;
     private String timings;                             // stores timings of a course
@@ -202,5 +203,13 @@ public class Course {
 
     public ArrayList<Student> getEnrolledStudents() {
         return enrolled_students;
+    }
+
+    public TA getTa() {
+        return ta;
+    }
+
+    public void setTa(TA ta) {
+        this.ta = ta;
     }
 }

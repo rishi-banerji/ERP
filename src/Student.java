@@ -85,7 +85,7 @@ public class Student extends User {
     }
 
     @Override
-    public Student login(String email, String password) {                       // REVIEW THIS AND OTHER LOGINS
+    public Student login(String email, String password) throws InvalidLoginException {                       // REVIEW THIS AND OTHER LOGINS
         // ONLY CHECK PASSWORD, OBJECT CALL this: STUDENT
 
         // If user exists, and user has entered the right password
@@ -95,8 +95,7 @@ public class Student extends User {
             System.out.println("Login successful. Student name: " + this.name);
             return this;
         } else {
-            System.out.println("Login failed. Incorrect email or password.");
-            return null;
+            throw new InvalidLoginException("Login failed. Incorrect email or password.");
         }
     }
 
@@ -227,9 +226,11 @@ public class Student extends User {
                 continue;
             }
 
-            if (!course_to_register.enrollStudent(this)) {
-                //Enrollment limit for course reached.
-                System.out.println("Enrollment limit for this course has been reached. Register for a different course.");
+            try {
+                course_to_register.enrollStudent(this);
+            } catch (CourseFullException error) {
+                // enrollment limit reached
+                System.out.println(error.getMessage());
                 continue;
             }
 
@@ -375,7 +376,16 @@ public class Student extends User {
             return;
         }
 
-        System.out.println("Course dropped successfully.");
+        try {
+            if (Course.has_drop_deadline_passed()) {
+                throw new DropDeadlinePassedException("Deadline for dropping the Course has passed. Cannot drop it now");
+            }
+            course_list.get(sem - 1).remove(course_to_drop);
+            System.out.println("Course dropped successfully.");
+        } catch (DropDeadlinePassedException error) {
+            System.out.println(error.getMessage());
+            return;
+        }
 
         // Calculating sem credits. If credits < 18, then student has to register for courses
         int sem_credits = 0;

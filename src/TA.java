@@ -10,7 +10,7 @@ public class TA extends Student {
     }
 
     @Override
-    public TA login(String email, String password) {                       // REVIEW THIS AND OTHER LOGINS
+    public TA login(String email, String password) throws InvalidLoginException {                       // REVIEW THIS AND OTHER LOGINS
         // ONLY CHECK PASSWORD, OBJECT CALL this: TA
 
         // If user exists, and user has entered the right password
@@ -20,8 +20,7 @@ public class TA extends Student {
             System.out.println("Login successful. TA name: " + this.name);
             return this;
         } else {
-            System.out.println("Login failed. Incorrect email or password.");
-            return null;
+            throw new InvalidLoginException("Login failed. Incorrect email or password.");
         }
     }
 
@@ -59,9 +58,10 @@ public class TA extends Student {
         System.out.println("Enter the Roll-Number of the Student whose grade you want to view: ");
         String roll_number = in.nextLine();
 
-        Student required_student = find_student(roll_number);
-        if (required_student != null) {
+        Object obj = find_student(roll_number);
+        if (obj != null) {
             // student exists
+            Student required_student = (Student) obj;
             for (ArrayList<Course> list_of_courses: required_student.course_list) {
                 for (Course c: list_of_courses) {
                     if (c.getCourse_code().equals(this.assigned_course.getCourse_code())) {

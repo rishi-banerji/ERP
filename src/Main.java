@@ -17,6 +17,11 @@ public class Main {
         Course HCI = new Course("Human Computer Interaction", "C201", "HCD101", "HCD", 4, "4-5pm", pr, "d", "2-3pm", 200);
         Course COM = new Course("Communication Skills", "C102", "SSH101", "SSH", 4, "1-2pm", pr, "s", "8-9am", 300);
 
+        ArrayList<Course> pr1 = new ArrayList<Course>();
+        pr1.add(LA);
+        Course DSA = new Course("Data Structures and Algorithms", "C101", "CSE201", "CSE", 4, "10:30-11:30am", pr, "f", "7-8am", 0);
+        Course PnS = new Course("Probability and Statistics", "C201", "MTH201", "MTH", 4, "3-4pm", pr1, "m", "7-8pm", 300);
+
         // ASSIGN PROF TO COURSES SEPARATELY(ADMIN)
         // DO NOT HARDCODE IT
 
@@ -25,13 +30,15 @@ public class Main {
         Course.available_courses.add(HCI);
         Course.available_courses.add(LA);
         Course.available_courses.add(COM);
+        Course.available_courses.add(DSA);
+        Course.available_courses.add(PnS);
 
 
 
         boolean flag = true;
         while (flag) {
-            System.out.println("do you want to login/signup from an account, or exit the application?");
-            System.out.println("Enter 1 for login/signup, and 2 for exiting");
+            System.out.println("Do you want to login/signup from an account, or exit the application?");
+            System.out.println("Enter 1 for login/signup, and 2 for exiting: ");
             int choice = scanner.nextInt();
             scanner.nextLine();
 
@@ -422,37 +429,45 @@ public class Main {
             if ((user instanceof TA && ((TA) user).getEmail().equals(email)) ) {
                 // Check password
                 TA existing_TA = (TA) user;
-                existing_TA = existing_TA.login(email, password);
-                if (existing_TA != null) {
+                try {
+                    existing_TA = existing_TA.login(email, password);
                     System.out.println("Login successful");
                     return existing_TA;
+                } catch (InvalidLoginException error) {
+                    System.out.println(error.getMessage());
                 }
             }
             else if ((user instanceof Student && ((Student) user).getEmail().equals(email)) ) {
                 // Check password
                 Student existing_student = (Student) user;
-                existing_student = existing_student.login(email, password);
-                if (existing_student != null) {
+                try {
+                    existing_student = existing_student.login(email, password);
                     System.out.println("Login successful");
                     return existing_student;
+                } catch (InvalidLoginException error) {
+                    System.out.println(error.getMessage());
                 }
             }
             else if ((user instanceof Prof && ((Prof) user).getEmail().equals(email)) ) {
                     // Check password
                 Prof existing_prof = (Prof) user;
-                existing_prof = existing_prof.login(email, password);
-                if (existing_prof != null) {
+                try {
+                    existing_prof = existing_prof.login(email, password);
                     System.out.println("Login successful");
                     return existing_prof;
+                } catch (InvalidLoginException error) {
+                    System.out.println(error.getMessage());
                 }
             }
             else if ((user instanceof Admin && ((Admin) user).getEmail().equals(email)) ) {
                     // Check password
                 Admin existing_admin = (Admin) user;
-                existing_admin = existing_admin.login(email, password);
-                if (existing_admin != null) {
+                try {
+                    existing_admin = existing_admin.login(email, password);
                     System.out.println("Login successful");
                     return existing_admin;
+                } catch (InvalidLoginException error) {
+                    System.out.println(error.getMessage());
                 }
             }
         }

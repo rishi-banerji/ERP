@@ -10,10 +10,11 @@ public class Course {
     private ArrayList<Course> pre_req;               // pre-requisites for the course
 
     private ArrayList<Student> enrolled_students = new ArrayList<>();
-
     public static ArrayList<Course> available_courses = new ArrayList<>();
-
     public ArrayList<Feedback> feedback_list = new ArrayList<>();
+
+    private static final long time_passed = System.currentTimeMillis();     // measures time in ms
+    private static final int drop_deadline = 180;         // 180 seconds = 3 minutes
 
     // ASSUMPTION: ANY COURSE whose PRE-REQUISITES have been COMPLETED by a student in a previous sem, can be taken
     // by the student in the current sem.
@@ -84,16 +85,18 @@ public class Course {
         }
     }
 
-    public boolean enrollStudent(Student student) {
-        if (enrolled_students.size() < enrollment_limit) {
-            enrolled_students.add(student);
-            return true;
-        } else {
-            System.out.println("Enrollment limit reached. Cannot enroll more students.");
-            return false;
+    public void enrollStudent(Student student) throws CourseFullException {
+        if (enrolled_students.size() >= enrollment_limit) {
+            throw new CourseFullException("Enrollment limit for this course has been reached. Register for a different course.");
         }
+        enrolled_students.add(student);
     }
 
+    public static boolean has_drop_deadline_passed() {
+        long currentTime = System.currentTimeMillis();
+        long elapsedTime = (currentTime - time_passed) / 1000; // Convert to seconds
+        return elapsedTime > drop_deadline;
+    }
 
 
     // Getters and Setters

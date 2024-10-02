@@ -7,6 +7,6 @@ public abstract class User implements Menu {
     }
 
     abstract boolean sign_up(String email, String password);
-    abstract User login(String email, String password);
+    abstract User login(String email, String password) throws InvalidLoginException;
     abstract String role();
 }

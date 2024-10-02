@@ -56,14 +56,13 @@ public class Admin extends User {
     }
 
     @Override
-    public Admin login(String email, String password) {
+    public Admin login(String email, String password) throws InvalidLoginException {
         if (this.password.equals(password)) {
             // Retrieving admin data
             System.out.println("Login successful. Prof name: " + this.name);
             return this;
         } else {
-            System.out.println("Login failed. Incorrect email or password.");
-            return null;
+            throw new InvalidLoginException("Login failed. Incorrect email or password.");
         }
     }
 

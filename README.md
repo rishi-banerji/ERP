@@ -2,16 +2,21 @@
 1. A Student should register for all courses of a particular semester at once (at least 18 credits, at most 20).
 2. ADMIN assigns grade to student, not professor. (There was a lot of confusion about this on Google Classroom, so I have assumed and implemented this).
 3. In the `track academic records` method (inside the `Student` class), I have assumed that the Student can only view grades, SGPA, and CGPA till the previous semester since once all grades are assigned for a semester, the student is automatically promoted to the next semester.
-4. No cap(upper limit) on the number of feedbacks by a particular student for a specific course.
-5. One TA is assigned to one course.
-6. Assignment of TA is done by Admin.
-7. TA can ONLY assign a grade to the student if it hasn't been assigned before.
+## Assignment 2
+5. No cap(upper limit) on the number of feedbacks by a particular student for a specific course.
+6. A student can give feedback for a course ONLY after the course has been completed by him. 
+7. One TA is assigned to one course.
+8. Assignment of TA is done by Admin.
+9. TA can ONLY assign a grade to the student if it hasn't been assigned before.
 
 # Running the code
 1. In my implementation, before registering for courses, professors with the required domains should be signed up. Then, admins should assign professors to corresponding courses. After that, the student can register for the course.
 2. I have hardcoded 5 courses(IP, HCI, DC, LA, COM), without assigning profs to them. The application will run smoothly, with the admin assigning profs to these courses. Other courses can be added too
 3. For the demo, 3 students, 2 profs and an admin can be registered too(manually, by running the application).
 4. Other than these, the prompts(while taking user input) should probably be sufficient to guide a user throughout the process.
+## Assignment 2
+5. For CourseFullException, I have added the course DSA, with enrollment limit = 0. So, no student should be able to register for it.
+6. I have measured the deadline for courses in seconds ie., seconds passed since a course has been registered for the first time. Taken it to be 180 secs(3 mins). 
 
 # Note:
 1. Admin Password: iiitd. Use this while signing up/logging in admins.
@@ -54,3 +59,15 @@ This is also called **Method Overriding**
 
 ## 9. Usage of Object Superclass
 - **Where used and Functionality**: Using the to_String() methods of the Object superclass, the println methods for each class have been modified.
+
+
+# Assignment 2 - Concepts
+
+## Generic Programming
+- I have a generic container called `feedback`, in the Feedback class. This container can store both integers(Integer class) and strings, according to the type of feedback chosen by the student.
+
+## Object Superclass
+- I have created an instance of the Object superclass in the `view_grades` method of the TA class. I have assigned it to the return value from a method which finds a student by his roll number. Before transposing it into a Student object, the code checks if the return value is not null.
+
+## Exception Handling
+- I have created separate classes for each of the 3 exceptions. When an error is 'caught', different error messages are printed using the constructors of the class. So errors are handled in this way using try-catch blocks.

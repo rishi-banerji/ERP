@@ -1,3 +1,8 @@
+# ERP
+I made a CLI-based Course Registration System in Java, supporting various users and their functionalities, as a part of my Advanced Programming Course.
+
+**Describe the project in brief**
+
 # Assumptions:
 1. A Student should register for all courses of a particular semester at once (at least 18 credits, at most 20).
 2. ADMIN assigns grade to student, not professor. (There was a lot of confusion about this on Google Classroom, so I have assumed and implemented this).

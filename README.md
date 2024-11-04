@@ -1,5 +1,5 @@
 # ERP - Course Registration System
-I made a CLI-based Course Registration System in Java, supporting various users and their functionalities, as a part of my Advanced Programming Course.
+I made a CLI-based Course Registration System in Java, supporting different kinds of users and their functionalities, as a part of my Advanced Programming Course.
 
 **Describe the project in brief**
 

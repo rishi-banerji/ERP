@@ -1,7 +1,34 @@
 # ERP - Course Registration System
 I made a CLI-based Course Registration System in Java, supporting different kinds of users and their functionalities, as a part of my Advanced Programming Course.
 
-**Describe the project in brief**
+## Description
+The application supports 4 types of Users: Student, Professor(Prof), Admin and TA(Teaching Assistant). The operations available to them are listed below.
+### Student
+- View all Available Courses.
+- Register for Courses.
+- View Schedule.
+- Track Academic Progress.
+- Drop Courses.
+- Submit Complaints.
+- Submit Feedback.
+
+### Prof
+- Manage Course assigned to you.
+- View Enrolled Students.
+- View Feedback.
+
+### Admin
+- Manage course catalog.
+- Manage student records.
+- Assign professors to courses.
+- Handle Complaints.
+- Assign TAs to Courses.
+
+### TA
+The Teaching Assistant is also a student. In addition to the functionalities of students, a TA has the following functionalities:
+- View Grades of Students enrolled in assigned course.
+- Update Grades of Students enrolled in assigned course.
+
 
 ## Assumptions:
 1. A Student should register for all courses of a particular semester at once (at least 18 credits, at most 20).
